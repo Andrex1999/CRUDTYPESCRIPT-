@@ -1,0 +1,127 @@
+class Persona{
+Id:number=0;
+Nombre:string="";
+Apellido:string ="";
+Tel:number=0;
+DatosP:Array<any>=[]; 
+
+}
+
+
+interface IdatosPersona extends Persona{
+getAll():void;
+getById(id:number):void;
+getByName(name:string):void;
+create(id:number,name:string,lastName:string,phone:number):void;
+update():void;
+delete():void;
+}
+
+
+class CRUDS implements IdatosPersona{
+Id:number=0;
+Nombre:string="";
+Apellido:string ="";
+Tel:number=0;
+DatosP = [{Id:1,Nombre: "Miguel", Apellido:"Vidal", Tel:12345},{Id:2,Nombre: "Andres", Apellido:"Montiel", Tel:45678},{Id:3,Nombre: "Aylen", Apellido:"Orjuela", Tel:22344}]
+
+
+
+getAll(){
+    const copymyObject = this.DatosP.map((item) => {return item});
+    console.log(copymyObject)
+  }
+
+getById(id:number):void{
+    const found = this.DatosP.find(element => element.Id == id);
+    console.log(found);
+  }
+
+getByName(name:string):void{
+    const found = this.DatosP.find(element => element.Nombre == name);
+    console.log(found);
+  }
+
+
+create(id:number,name:string,lastName:string,phone:number):void{
+    this.DatosP.push({Id:id,Nombre:name,Apellido:lastName,Tel:phone})
+    console.log("Datos Guardados")
+    const copymyObject = this.DatosP.map((item) => {return item});
+    console.log(copymyObject)
+
+}
+    update(id:number,name:string,lastName:string,phone:number):void{
+
+        this.DatosP.splice((id-1), 1, {Id:id,Nombre:name,Apellido:lastName,Tel:phone})
+
+        const copymyObject = this.DatosP.map((item) => {return item});
+        console.log(copymyObject)
+
+    }
+
+
+delate(id:number):void{
+
+        const copyArray = this.DatosP.filter((i) => i.Id != id);
+        console.log(copyArray)
+    }
+
+
+} 
+
+let CRUD = new CRUDS();
+
+
+let opc:number = 0;
+
+
+ opc = Number(window.prompt('Digita una opcion \n'
+            + '1. Mostrar Todos \n'
+            + '2. Mostrar por Id \n'
+            + '3. Mostrar por nombre \n'
+            + '4. Crear o Insertar Persona \n'
+            + '5. Actualizar  Persona\n'
+            + '6. Eliminar Persona \n'
+            + '7. Salir'));
+        
+    switch(opc){
+
+case 1:
+console.log(CRUD.getAll())
+
+break;
+
+case 2:
+
+console.log(CRUD.getById(1))
+break;
+
+case 3:
+console.log(CRUD.getByName("Aylen"))
+break;
+
+
+case 4:
+console.log(CRUD.create(4, "Luis", "Escorcia", 66633))
+break;
+
+case 5:
+console.log(CRUD.update(1, "Michael", "Martinez", 66666))
+break;
+
+case 6:
+console.log(CRUD.delate(1))
+
+break;
+
+case 7:
+
+console.log("Salir")
+
+break;
+
+default:
+        console.log("No such day exists!");
+        break;
+
+    }
